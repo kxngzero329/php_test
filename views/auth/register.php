@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Register - ClockIt";
-require_once 'layouts/header.php';
+require_once __DIR__ . '/../layouts/header.php';
 
 // Check if user is already logged in
 if (isset($_SESSION['user'])) {

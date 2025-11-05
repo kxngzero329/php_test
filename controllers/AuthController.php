@@ -1,9 +1,9 @@
 <?php
-require_once '../config/database.php';
-require_once '../utils/ResponseHandler.php';
-require_once '../utils/HashPassword.php';
-require_once '../utils/JWT.php';
-require_once '../utils/EmailSender.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../utils/ResponseHandler.php';
+require_once __DIR__ . '/../utils/HashPassword.php';
+require_once __DIR__ . '/../utils/JWT.php';
+require_once __DIR__ . '/../utils/EmailSender.php';
 
 class AuthController {
     private $db;

@@ -1,12 +1,13 @@
 <?php
-require_once 'config/database.php';
-require_once 'config/env.php';
-require_once 'utils/ResponseHandler.php';
-require_once 'utils/JWT.php';
-require_once 'utils/HashPassword.php';
-require_once 'middleware/AuthMiddleware.php';
-require_once 'middleware/AdminMiddleware.php';
-require_once 'middleware/ErrorHandler.php';
+// Use absolute paths with __DIR__
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/config/env.php';
+require_once __DIR__ . '/utils/ResponseHandler.php';
+require_once __DIR__ . '/utils/JWT.php';
+require_once __DIR__ . '/utils/HashPassword.php';
+require_once __DIR__ . '/middleware/AuthMiddleware.php';
+require_once __DIR__ . '/middleware/AdminMiddleware.php';
+require_once __DIR__ . '/middleware/ErrorHandler.php';
 
 // Register error handlers
 ErrorHandler::register();
@@ -18,7 +19,7 @@ $request = $_SERVER['REQUEST_URI'];
 $path = parse_url($request, PHP_URL_PATH);
 
 // Remove base directory if exists
-$base_dir = '/php-app';
+$base_dir = '/attendance_tracker';
 if (strpos($path, $base_dir) === 0) {
     $path = substr($path, strlen($base_dir));
 }
@@ -52,38 +53,6 @@ $routes = [
         'middleware' => 'AuthMiddleware::protect'
     ],
     '/api/theme' => ['controller' => 'AuthController@setTheme'],
-    
-    // API routes - Users
-    '/api/users/profile' => [
-        'controller' => 'UserController@getProfile',
-        'middleware' => 'AuthMiddleware::protect'
-    ],
-    '/api/users/change-password' => [
-        'controller' => 'UserController@changePassword',
-        'middleware' => 'AuthMiddleware::protect'
-    ],
-    
-    // API routes - Notifications
-    '/api/notifications' => [
-        'controller' => 'NotificationController@getNotifications',
-        'middleware' => 'AuthMiddleware::protect'
-    ],
-    '/api/admin/notify/all' => [
-        'controller' => 'AdminNotificationController@broadcastNotification',
-        'middleware' => 'AdminMiddleware::requireAdmin'
-    ],
-    '/api/admin/notify/user' => [
-        'controller' => 'AdminNotificationController@personalNotification',
-        'middleware' => 'AdminMiddleware::requireAdmin'
-    ],
-    '/api/notifications/broadcast' => [
-        'controller' => 'NotificationController@sendBroadcastNotification',
-        'middleware' => 'AdminMiddleware::requireAdmin'
-    ],
-    '/api/notifications/personal' => [
-        'controller' => 'NotificationController@sendPersonalNotification',
-        'middleware' => 'AdminMiddleware::requireAdmin'
-    ],
 ];
 
 // Handle the request
@@ -98,7 +67,7 @@ if (isset($routes[$path])) {
     // Handle controller routes
     if (isset($route['controller'])) {
         list($controller, $method) = explode('@', $route['controller']);
-        require_once 'controllers/' . $controller . '.php';
+        require_once __DIR__ . '/controllers/' . $controller . '.php';
         $controllerInstance = new $controller();
         $controllerInstance->$method();
     } 
@@ -116,7 +85,7 @@ if (isset($routes[$path])) {
             exit;
         }
         
-        require_once $route['view'];
+        require_once __DIR__ . '/' . $route['view'];
     }
 } else {
     http_response_code(404);

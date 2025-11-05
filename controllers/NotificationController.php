@@ -1,7 +1,7 @@
 <?php
-require_once '../config/database.php';
-require_once '../utils/ResponseHandler.php';
-require_once '../middleware/AuthMiddleware.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../utils/ResponseHandler.php';
+require_once __DIR__ . '/../middleware/AuthMiddleware.php';
 
 class NotificationController {
     private $db;

@@ -1,9 +1,8 @@
 <?php
-require_once '/../config/database.php';
-require_once '/../utils/ResponseHandler.php';
-require_once '/../utils/NotifyUser.php';
-require_once '/AuthMiddleware.php';
-
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../utils/ResponseHandler.php';
+require_once __DIR__ . '/../utils/NotifyUser.php';
+require_once __DIR__ . '/AuthMiddleware.php';
 class AdminMiddleware {
     private $db;
     private $responseHandler;
