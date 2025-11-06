@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layouts/header.php';
 
 // Check if user is already logged in
 if (isset($_SESSION['user'])) {
-    header('Location: /dashboard');
+    header('Location: /attendance_tracker/dashboard');
     exit;
 }
 
@@ -15,7 +15,7 @@ $email = $_GET['email'] ?? '';
 if (!$token || !$email) {
     $_SESSION['message'] = "Invalid or missing reset token/email.";
     $_SESSION['success'] = false;
-    header('Location: /forgot-password');
+    header('Location: /attendance_tracker/forgot-password');
     exit;
 }
 ?>
@@ -23,7 +23,7 @@ if (!$token || !$email) {
 <div class="reset-container">
     <!-- Illustration -->
     <div class="illustration">
-        <img src="/assets/images/Security On-bro.png" alt="Security Illustration" class="image" />
+        <img src="/attendance_tracker/assets/images/Security On-bro.png" alt="Security Illustration" class="image" />
     </div>
 
     <!-- Form -->
@@ -38,7 +38,7 @@ if (!$token || !$email) {
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/api/auth/reset-password">
+        <form method="POST" action="/attendance_tracker/api/auth/reset-password">
             <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>" />
             <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>" />
 
@@ -73,7 +73,7 @@ if (!$token || !$email) {
                 Reset Password
             </button>
 
-            <a href="/" class="secondary">Back to Login</a>
+            <a href="/attendance_tracker/" class="secondary">Back to Login</a>
         </form>
     </div>
 </div>

@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layouts/header.php';
 
 // Check if user is already logged in
 if (isset($_SESSION['user'])) {
-    header('Location: /dashboard');
+    header('Location: /attendance_tracker/dashboard');
     exit;
 }
 ?>
@@ -22,7 +22,7 @@ if (isset($_SESSION['user'])) {
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="/api/auth/register" class="form-grid" onsubmit="return validateForm()">
+            <form method="POST" action="/attendance_tracker/api/auth/register" class="form-grid" onsubmit="return validateForm()">
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">First Name</label>
@@ -98,7 +98,7 @@ if (isset($_SESSION['user'])) {
 
                 <div class="register-link">
                     <span>Already have an account? </span>
-                    <a href="/">Sign in here</a>
+                    <a href="/attendance_tracker/">Sign in here</a>
                 </div>
             </form>
         </div>

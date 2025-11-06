@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layouts/header.php';
 
 // Check if user is already logged in
 if (isset($_SESSION['user'])) {
-    header('Location: /dashboard');
+    header('Location: /attendance_tracker/dashboard');
     exit;
 }
 ?>
@@ -16,7 +16,7 @@ if (isset($_SESSION['user'])) {
             <h1 class="left-title">Welcome Back</h1>
             <p class="left-subtitle">Login to continue to your account</p>
 
-            <img src="/assets/images/<?php echo isset($_SESSION['theme']) && $_SESSION['theme'] === 'dark' ? 'login-logo-dark.png' : 'login-logo-lg.png'; ?>" 
+            <img src="/attendance_tracker/assets/images/<?php echo isset($_SESSION['theme']) && $_SESSION['theme'] === 'dark' ? 'login-logo-dark.png' : 'login-logo-lg.png'; ?>" 
                  alt="Company Logo" class="login-logo" />
 
             <blockquote class="login-quote">
@@ -39,7 +39,7 @@ if (isset($_SESSION['user'])) {
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="/api/auth/login" class="login-form">
+            <form method="POST" action="/attendance_tracker/api/auth/login" class="login-form">
                 <label for="email" class="form-label">Email Address</label>
                 <input type="email" id="email" name="email" required 
                     class="form-input" placeholder="Enter your email" 
@@ -59,7 +59,7 @@ if (isset($_SESSION['user'])) {
                         <input type="checkbox" name="remember_me" />
                         Remember Me
                     </label>
-                    <a href="/forgot-password" class="forgot-link">Forgot password?</a>
+                    <a href="/attendance_tracker/forgot-password" class="forgot-link">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="login-btn">
@@ -68,7 +68,7 @@ if (isset($_SESSION['user'])) {
 
                 <div class="register-link">
                     <span>Don't have an account?</span>
-                    <a href="/register">Sign up here</a>
+                    <a href="/attendance_tracker/register">Sign up here</a>
                 </div>
             </form>
         </div>

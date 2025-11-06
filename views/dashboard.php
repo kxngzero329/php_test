@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layouts/header.php';
 
 // Check authentication using middleware
 if (!AuthMiddleware::checkAuth()) {
-    header('Location: /login');
+    header('Location: /attendance_tracker/login');
     exit;
 }
 
@@ -33,10 +33,10 @@ $user = AuthMiddleware::getUser();
                     </div>
 
                     <div class="mt-4 text-center">
-                        <a href="/api/auth/logout" class="btn btn-primary">Sign Out</a>
+                        <a href="/attendance_tracker/api/auth/logout" class="btn btn-primary">Sign Out</a>
                         
                         <?php if (AdminMiddleware::isAdmin()): ?>
-                            <a href="/admin" class="btn btn-secondary ms-2">Admin Panel</a>
+                            <a href="/attendance_tracker/admin" class="btn btn-secondary ms-2">Admin Panel</a>
                         <?php endif; ?>
                     </div>
                 </div>

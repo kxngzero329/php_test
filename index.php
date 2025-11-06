@@ -24,6 +24,11 @@ if (strpos($path, $base_dir) === 0) {
     $path = substr($path, strlen($base_dir));
 }
 
+// Ensure path ends with / for root
+if ($path === '') {
+    $path = '/';
+}
+
 $routes = [
     // Public routes
     '/' => ['view' => 'views/auth/login.php'],
@@ -75,13 +80,13 @@ if (isset($routes[$path])) {
     elseif (isset($route['view'])) {
         // Additional protection for views
         if (strpos($path, '/dashboard') === 0 && !AuthMiddleware::checkAuth()) {
-            header('Location: /login');
+            header('Location: /attendance_tracker/login');
             exit;
         }
         
         // Redirect authenticated users away from auth pages
         if (in_array($path, ['/', '/login', '/register']) && AuthMiddleware::checkAuth()) {
-            header('Location: /dashboard');
+            header('Location: /attendance_tracker/dashboard');
             exit;
         }
         
@@ -97,7 +102,9 @@ if (isset($routes[$path])) {
             'message' => 'Endpoint not found. Please check the API documentation at the root endpoint.'
         ]);
     } else {
-        echo "Page not found";
+        // For unknown pages, redirect to login
+        header('Location: /attendance_tracker/login');
+        exit;
     }
 }
 ?>
