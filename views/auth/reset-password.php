@@ -20,6 +20,26 @@ if (!$token || !$email) {
 }
 ?>
 
+<style>
+    input[type="password"] {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        background: var(--input-bg);
+        color: var(--text-color);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        font-size: 0.95rem;
+    }
+
+    input[type="password"]:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 5px rgba(6, 195, 167, 0.5);
+        outline: none;
+    }
+</style>
+
+
 <div class="reset-container">
     <!-- Illustration -->
     <div class="illustration">
@@ -43,11 +63,12 @@ if (!$token || !$email) {
             <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>" />
 
             <div class="password-field">
-                <input id="newPassword" name="newPassword" type="password" placeholder="Enter new password" 
-                       maxlength="15" oninput="updatePasswordHints()" required />
+                <input id="newPassword" name="newPassword" type="password" placeholder="Enter new password"
+                    maxlength="15" oninput="updatePasswordHints()" required />
                 <button type="button" class="eye" onclick="togglePasswordVisibility('newPassword')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="var(--accent-color)"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <circle cx="12" cy="12" r="3" stroke="var(--accent-color)" stroke-width="1.5" />
                     </svg>
                 </button>
@@ -67,7 +88,8 @@ if (!$token || !$email) {
                 <li id="hintLength">8–15 characters long</li>
             </ul>
 
-            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" maxlength="15" required />
+            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password"
+                maxlength="15" required />
 
             <button type="submit" class="primary" onclick="return validateForm()">
                 Reset Password
@@ -79,115 +101,115 @@ if (!$token || !$email) {
 </div>
 
 <script>
-function togglePasswordVisibility(fieldId) {
-    const passwordInput = document.getElementById(fieldId);
-    const eyeButton = passwordInput.parentNode.querySelector('.eye');
-    
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        eyeButton.innerHTML = `
+    function togglePasswordVisibility(fieldId) {
+        const passwordInput = document.getElementById(fieldId);
+        const eyeButton = passwordInput.parentNode.querySelector('.eye');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeButton.innerHTML = `
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a22.3 22.3 0 0 1 5.29-4.69" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path d="M1 1l22 22" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         `;
-    } else {
-        passwordInput.type = 'password';
-        eyeButton.innerHTML = `
+        } else {
+            passwordInput.type = 'password';
+            eyeButton.innerHTML = `
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="var(--accent-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <circle cx="12" cy="12" r="3" stroke="var(--accent-color)" stroke-width="1.5" />
             </svg>
         `;
+        }
     }
-}
 
-function updatePasswordHints() {
-    const password = document.getElementById('newPassword').value;
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-    const hasSpecial = /[^A-Za-z0-9]/.test(password);
-    const hasMinLength = password.length >= 8 && password.length <= 15;
-    
-    // Update hints
-    document.getElementById('hintUppercase').className = hasUppercase ? 'valid' : '';
-    document.getElementById('hintNumber').className = hasNumber ? 'valid' : '';
-    document.getElementById('hintSpecial').className = hasSpecial ? 'valid' : '';
-    document.getElementById('hintLength').className = hasMinLength ? 'valid' : '';
-    
-    // Update warning
-    const charWarning = document.getElementById('charWarning');
-    charWarning.textContent = password.length > 15 ? 'Password must be between 8–15 characters.' : '';
-    
-    // Update strength meter
-    let score = 0;
-    if (hasUppercase) score++;
-    if (hasNumber) score++;
-    if (hasSpecial) score++;
-    if (hasMinLength) score++;
-    
-    const strengthPercent = (score / 4) * 100;
-    const strengthBar = document.getElementById('strengthBar');
-    const strengthLabel = document.getElementById('strengthLabel');
-    
-    let strengthText, strengthColor;
-    switch (score) {
-        case 0:
-        case 1: 
-            strengthText = "Weak"; 
-            strengthColor = "#FF4D4D"; 
-            break;
-        case 2: 
-            strengthText = "Fair"; 
-            strengthColor = "#FFA500"; 
-            break;
-        case 3: 
-            strengthText = "Good"; 
-            strengthColor = "#00BFFF"; 
-            break;
-        case 4: 
-            strengthText = "Strong"; 
-            strengthColor = "#00C853"; 
-            break;
-        default: 
-            strengthText = "Weak"; 
-            strengthColor = "#CCCCCC";
-    }
-    
-    strengthBar.style.width = strengthPercent + '%';
-    strengthBar.style.background = strengthColor;
-    strengthLabel.textContent = strengthText;
-    strengthLabel.style.color = strengthColor;
-}
+    function updatePasswordHints() {
+        const password = document.getElementById('newPassword').value;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[^A-Za-z0-9]/.test(password);
+        const hasMinLength = password.length >= 8 && password.length <= 15;
 
-function validateForm() {
-    const newPassword = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    
-    const hasUppercase = /[A-Z]/.test(newPassword);
-    const hasNumber = /[0-9]/.test(newPassword);
-    const hasSpecial = /[^A-Za-z0-9]/.test(newPassword);
-    const hasMinLength = newPassword.length >= 8 && newPassword.length <= 15;
-    
-    const score = [hasUppercase, hasNumber, hasSpecial, hasMinLength].filter(Boolean).length;
-    
-    if (!hasMinLength) {
-        alert("Password must be between 8–15 characters.");
-        return false;
+        // Update hints
+        document.getElementById('hintUppercase').className = hasUppercase ? 'valid' : '';
+        document.getElementById('hintNumber').className = hasNumber ? 'valid' : '';
+        document.getElementById('hintSpecial').className = hasSpecial ? 'valid' : '';
+        document.getElementById('hintLength').className = hasMinLength ? 'valid' : '';
+
+        // Update warning
+        const charWarning = document.getElementById('charWarning');
+        charWarning.textContent = password.length > 15 ? 'Password must be between 8–15 characters.' : '';
+
+        // Update strength meter
+        let score = 0;
+        if (hasUppercase) score++;
+        if (hasNumber) score++;
+        if (hasSpecial) score++;
+        if (hasMinLength) score++;
+
+        const strengthPercent = (score / 4) * 100;
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthLabel = document.getElementById('strengthLabel');
+
+        let strengthText, strengthColor;
+        switch (score) {
+            case 0:
+            case 1:
+                strengthText = "Weak";
+                strengthColor = "#FF4D4D";
+                break;
+            case 2:
+                strengthText = "Fair";
+                strengthColor = "#FFA500";
+                break;
+            case 3:
+                strengthText = "Good";
+                strengthColor = "#00BFFF";
+                break;
+            case 4:
+                strengthText = "Strong";
+                strengthColor = "#00C853";
+                break;
+            default:
+                strengthText = "Weak";
+                strengthColor = "#CCCCCC";
+        }
+
+        strengthBar.style.width = strengthPercent + '%';
+        strengthBar.style.background = strengthColor;
+        strengthLabel.textContent = strengthText;
+        strengthLabel.style.color = strengthColor;
     }
-    
-    if (newPassword !== confirmPassword) {
-        alert("Passwords do not match.");
-        return false;
+
+    function validateForm() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        const hasUppercase = /[A-Z]/.test(newPassword);
+        const hasNumber = /[0-9]/.test(newPassword);
+        const hasSpecial = /[^A-Za-z0-9]/.test(newPassword);
+        const hasMinLength = newPassword.length >= 8 && newPassword.length <= 15;
+
+        const score = [hasUppercase, hasNumber, hasSpecial, hasMinLength].filter(Boolean).length;
+
+        if (!hasMinLength) {
+            alert("Password must be between 8–15 characters.");
+            return false;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+
+        if (score < 3) {
+            alert("Please make your password stronger before continuing.");
+            return false;
+        }
+
+        return true;
     }
-    
-    if (score < 3) {
-        alert("Please make your password stronger before continuing.");
-        return false;
-    }
-    
-    return true;
-}
 </script>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

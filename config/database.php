@@ -9,7 +9,7 @@ class Database {
     public function __construct() {
         $this->host = $_ENV['DB_HOST'] ?? 'localhost';
         $this->user = $_ENV['DB_USER'] ?? 'root';
-        $this->password = $_ENV['DB_PASSWORD'] ?? 'shakeel2003';
+        $this->password = $_ENV['DB_PASSWORD'] ?? 'K@mikaze3290';
         $this->database = $_ENV['DB_NAME'] ?? 'tracker_db';
         $this->connect();
     }

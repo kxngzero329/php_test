@@ -19,8 +19,8 @@ if (file_exists($envFile)) {
 // Set default values
 $_ENV['DB_HOST'] = $_ENV['DB_HOST'] ?? 'localhost';
 $_ENV['DB_USER'] = $_ENV['DB_USER'] ?? 'root';
-$_ENV['DB_PASSWORD'] = $_ENV['DB_PASSWORD'] ?? 'shakeel2003';
+$_ENV['DB_PASSWORD'] = $_ENV['DB_PASSWORD'] ?? 'K@mikaze3290';
 $_ENV['DB_NAME'] = $_ENV['DB_NAME'] ?? 'tracker_db';
 $_ENV['JWT_SECRET'] = $_ENV['JWT_SECRET'] ?? 'your-jwt-secret-key';
-$_ENV['FRONTEND_ORIGIN'] = $_ENV['FRONTEND_ORIGIN'] ?? 'http://localhost/attendace_tracker';
+$_ENV['FRONTEND_ORIGIN'] = $_ENV['FRONTEND_ORIGIN'] ??= 'http://localhost/attendance_tracker';
 ?>
