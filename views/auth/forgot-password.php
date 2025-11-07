@@ -17,11 +17,19 @@ if (isset($_SESSION['user'])) {
 
     input[type="email"] {
         width: 100%;
-        padding: 12px 15px;
-        margin: 8px 0 16px 0;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        background: var(--input-bg);
+        color: var(--text-color);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        font-size: 0.95rem;
+    }
+    input[type="email"]:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 5px rgba(6, 195, 167, 0.5);
+        outline: none;
     }
 </style>
 

@@ -13,7 +13,7 @@ $token = $_GET['token'] ?? '';
 $email = $_GET['email'] ?? '';
 
 if (!$token || !$email) {
-    $_SESSION['message'] = "Invalid or missing reset token/email.";
+    $_SESSION['message'] = "Please fill in your email to receive a reset link.";
     $_SESSION['success'] = false;
     header('Location: /attendance_tracker/forgot-password');
     exit;
@@ -25,6 +25,7 @@ if (!$token || !$email) {
         width: 100%;
         padding: 12px 14px;
         border-radius: 10px;
+        margin-bottom: 15px;
         border: 1px solid var(--border-color);
         background: var(--input-bg);
         color: var(--text-color);
