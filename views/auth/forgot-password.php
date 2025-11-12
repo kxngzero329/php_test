@@ -10,25 +10,21 @@ if (isset($_SESSION['user'])) {
 ?>
 
 <style>
-    .forgot-container{
-         background: linear-gradient(180deg, rgba(6, 195, 167, 0.15) 0%, rgba(6, 195, 167, 0.05) 100%);
-    }
-
-
     input[type="email"] {
         width: 100%;
         padding: 12px 14px;
         border-radius: 10px;
-        margin-bottom: 15px;
         border: 1px solid var(--border-color);
         background: var(--input-bg);
         color: var(--text-color);
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
         font-size: 0.95rem;
+        margin-bottom: 15px;
     }
+
     input[type="email"]:focus {
         border-color: var(--accent-color);
-        box-shadow: 0 0 5px rgba(6, 195, 167, 0.5);
+        box-shadow: 0 0 0 3px rgba(6, 195, 167, 0.2);
         outline: none;
     }
 </style>
@@ -52,12 +48,11 @@ if (isset($_SESSION['user'])) {
         <?php endif; ?>
 
         <form method="POST" action="/attendance_tracker/api/auth/forgot-password">
-            <input type="email" name="email" placeholder="Enter your email address" 
-                   value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required />
+            <input type="email" name="email" placeholder="Enter your email address"
+                value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required />
 
             <div class="checkbox-wrapper">
-                <input type="checkbox" id="useBackup" name="useBackup" 
-                       <?php echo isset($_POST['useBackup']) ? 'checked' : ''; ?> />
+                <input type="checkbox" id="useBackup" name="useBackup" <?php echo isset($_POST['useBackup']) ? 'checked' : ''; ?> />
                 <label for="useBackup">Send to backup email instead</label>
             </div>
 
